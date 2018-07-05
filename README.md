@@ -31,17 +31,21 @@ Dqn itslef is AI. It stands for Deep Q networks. We implement Dqn and import in 
 `Config.set('input', 'mouse', 'mouse,multitouch_on_demand')`
 
 ### 5. Introducing last_x and last_y, used to keep the last point in memory when we draw the sand on the map
-`last_x = 0
+```
+last_x = 0
 last_y = 0
 n_points = 0
-length = 0`
+length = 0
+```
 
 Here `last_x = 0` and `last_y = 0` are the last cordinates of sand on map. When car reaches to sand path car slow downs its drving speed.
 ### 6. Getting our AI, which we call "brain", and that contains our neural network that represents our Q-function
-`brain = Dqn(5,3,0.9)
+```
+brain = Dqn(5,3,0.9)
 action2rotation = [0,20,-20]
 last_reward = 0
-scores = []`
+scores = []
+```
 
 We get AI which is called as brain. so it contains neurol network. `brain = Dqn(5,3,0.9)` Here brain is object and Dqn is the class. 
 **5,3,0.9**  are the inputs of the class. 
