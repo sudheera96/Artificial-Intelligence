@@ -1,7 +1,131 @@
 # Artificial-Intelligence
+
+# Reinforcement Learning
+Reinforcement Learning is learning what to do and how to map situations to actions. The end result is to maximize the numerical reward signal. The learner is not told which action to take, but instead must discover which action will yield the maximum reward.
+
+## Example:
+
+Consider an AI agent called “Pi” . Now, we want Pi to play a video game. If Pi was trained using supervised learning, we would show Pi a large number of games and then ask it to imitate the actions of successful ones and avoid those in unsuccessful ones. But this would be ridiculously naive as the agent would need a lot of memory to store all this data and it would still not be effective as it can only learn what we show it.
+
+It doesn’t learn to think by itself. In Reinforcement Learning, we ask Pi to play the game by itself. Initially, it just makes random moves. Then, for the moves it made, it starts getting rewards. Now, it has to keep in mind, the correlation between the move it made and the reward it obtained. That’s going to be a tricky thing. So,what we do is that we learn a function which we call as Q. 
+
+It takes two inputs : screen (S) and action(A). The output of the Q function should be this : if S is the screen and A is the action we take, what would be the reward. Let’s say that somehow, we have obtained this function. Now, if we have this function for the given game, all we need to do is this : given the current screen S, we try all possible actions and compare the Q values for all the actions. 
+
+The action which has the largest Q value would give us the highest reward. So, we choose that action. Now, how to get this Q function ? If our game was simple, we could just write down the entire function by hand. In real games, we can’t do this as the input to the function is an image which is high dimensional data. Here is where deep learning is used. One way to treat a neural network is to think of it as a function approximator.
+
+If the function is more complicated, then the neural network needs more depth and when we use such networks to learn functions it’s called deep learning. Now, we use this deep network to represent the Q function and then use it to decide the action (DQN - Deep Q Network).
+
+## For further exploration :
+
+How do we train the neural network to represent the Q function ? We use an iterative procedure called Bellman’s Updates to train.
+
+How do we know which action led to which reward ? We could have done something long back and it might lead to reward much later. This is usually called as the ‘Credit Assignment Problem’. We try to solve this by considering discounted rewards.
+
+What else ? The algorithm was unstable even with deep networks. Progress was made only after incorporating insights from neuroscience such as experience replay.
+
+What’s going on now ?
+
+DQN has been finetuned to train faster using parallel updates.
+
+DRQN : Deep Recurrent Q Network.
+
+DARQN : Deep Attention Recurrent Q Network.
+
+DDRQN : Deep Distributed Recurrent Q Network.
+
+Duelling Architectures for Q learning : separate nets for state and action
+
+Double Q Learning :
+
+Continuous Control Policies : Most of the Atari games on which DQN was tested had 2–4 actions. Real life action spaces tend to be parametrized spaces and thus have huge cardinalities. To tackle this, continuous control policies are being developed.
+
+Dynamic Skip Free Networks :
+
+…
+
+…
+
+What are the other approaches ? DQN comes broadly under the category of value learning. The other interesting category is policy learning where we directly learn the mapping between the screen and the action. (Refs : DDPG).
+
+## Intuition behind Q-Learning :
+
+I’m going to explain here the intuition behind Q-learning. The pre-requisites are for understanding the answer are : a basic ideas of Markov Decision Process, Dynamic Programming Method and the Fixed-Point Method.
+
+Q-learning is basically a DP problem that is solved by a Fixed Point Method.
+
+Let’s say you are playing a game and your current state is ‘s(,t)’. You are allowed to take actions a(i) for i in 1 to n. Then, it takes you to the state ‘s(t+1)’ and gives you a reward r(i). With every state, there is a profit value (called as Q-Value) associated with it. Our task is to choose states so as to maximize the profit value. Let’s call the value associated with the state s(t) as DP[s(t)] in typical DP terms. Then, the DP array can be constructed as
+
+DP[ s(t+1) ] = max over actions { r(i) + DP[s(t+1)] }
+
+This is what is called as the Bellman Equation : Q(s,a) = max ( r + Q(s,a) )
+
+Now, if we have this DP array we can easily solve a problem. So, how do we build our DP array ? If our state space is similar we could just explore all states and build this like a regular DP.
+
+Bellman figured out a simple way to build this DP array which is called as the Bellman Updates.
+
+If you look carefully at the Bellman equation, it looks like this X = F(X) where X is Q(s,a) and F is a function. So, this F takes functions as input and produces functions as output. When it takes our Q-function, it outputs the same function. In other words, the Q functions is a fixed point. Typically, the fixed point method are solved using the iteration : X(i+1) = F(X(i)).
+
+This iteration is called as `Bellman Updates`.
+
+When we perform this fixed point iteration (Bellman Updates) to solve the DP problem (Bellman Equation), it’s called as Q-learning.
+
+When the Q-function is represented by a deep neural network, it is called as Deep Q Learning.
+
+# Markov Decision Process
+The mathematical framework for defining a solution in reinforcement learning scenario is called Markov Decision Process. This can be designed as:
+
+- Set of states, S
+- Set of actions, A
+- Reward function, R
+- Policy, π
+- Value, V
+
+We have to take an action (A) to transition from our start state to our end state (S). In return getting rewards (R) for each action we take. Our actions can lead to a positive reward or negative reward.
+
+The set of actions we took define our policy (π) and the rewards we get in return defines our value (V). Our task here is to maximize our rewards by choosing the correct policy.
+![image](https://s3-ap-south-1.amazonaws.com/av-blog-media/wp-content/uploads/2017/01/10074502/Capture1.png)
+
+So we have to maximize for all possible values of S for a time t.
+
+For more details follow the [link](https://www.fer.unizg.hr/_download/repository/AI-11-ReinforcementLearning.pdf)
+
 ## Getting Started
 We built the AI which contains the car to train to drive itself and avoid abstacles on which we draw some roads and blocks for car to navigate around that.
 So we use two files ai.py whcih is for slef drive and map.py which for complete environment.
+
+We will implement the Self-Driving Car with PyTorch, a highly advanced Deep Learning & AI platform.
+
+## Run PyTorch natively on Windows 10 (with GPU support, no need for a virtual box)!
+1) Install Anaconda3 4.3.1 (64 bit, Python 3.6)
+
+2) Open "Anaconda Prompt" from the start menu as administrator (important!)
+
+3) Enter the following commands in the console to install PyTorch (requires an update of Python to 3.6.1):
+
+conda install -c anaconda python=3.6.1
+ 
+conda install -c peterjc123 pytorch=0.1.12
+
+
+The following steps are required to get Kivy up and running in Anaconda:
+
+4) Download https://kivy.org/downloads/appveyor/kivy/Kivy-1.10.1.dev0-cp36-cp36m-win_amd64.whl
+
+5) Go to the download folder in your Anaconda Prompt console ("cd <folder name>")
+
+6) Enter the following commands in the Anaconda Prompt console to install Kivy:
+
+pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
+ 
+pip install kivy.deps.gstreamer
+ 
+pip install Kivy-1.10.1.dev0-cp36-cp36m-win_amd64.whl
+7) In Spyder go to Tools -> Preferences -> Run
+
+8) Set Console -> Execute in an external system terminal (otherwise I do not see the Kivy windows when running the code)
+
+NOTE: Pytorch won't run directly on windows for that we need to install UBUNTU.
+
 ## Self Driving Car Step 1
 We are initializing the map with map.py file.
 ### 1. Import libraries
