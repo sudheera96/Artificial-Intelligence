@@ -1,4 +1,4 @@
-# Artificial-Intelligence
+# Artificial-Intelligence - Self Driving Car
 
 # Reinforcement Learning
 Reinforcement Learning is learning what to do and how to map situations to actions. The end result is to maximize the numerical reward signal. The learner is not told which action to take, but instead must discover which action will yield the maximum reward.
